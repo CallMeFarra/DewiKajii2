@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -21,6 +22,7 @@ public class YourAccount extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_your_account);
+
 
         Toolbar toolbar = findViewById(R.id.toolbarAcc);
         setSupportActionBar(toolbar);
@@ -67,6 +69,12 @@ public class YourAccount extends AppCompatActivity {
         // Ambil nilai username dan password dari EditText
         String username = editTextUsername.getText().toString();
         String password = editTextPassword.getText().toString();
+        databaseHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        if (db != null) {
+            databaseHelper.addUser(username, password);
+            db.close();
+        }
 
         // Verifikasi login
         if(databaseHelper.checkLogin(username,password)){
@@ -81,12 +89,13 @@ public class YourAccount extends AppCompatActivity {
                 sebagai = "user";
             }
 
-            databaseHelper.addUser(username, password);
-
             Intent intent = new Intent(YourAccount.this, ProfilActivity.class);
             intent.putExtra("USERNAME", username);
             intent.putExtra("SEBAGAI", sebagai);
             startActivity(intent);
+        } else {
+            // Tampilkan pesan kesalahan
+            Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
         }
     }
 

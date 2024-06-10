@@ -13,8 +13,8 @@ import android.widget.Toast;
 public class ProfilActivity extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
-    private EditText editTextUsn;
-    private EditText editTextPw;
+    private TextView editTextUsn;
+    private TextView editTextPw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +58,9 @@ public class ProfilActivity extends AppCompatActivity {
 
     private void login() {
         // Ambil data dari EditText
-        String username = editTextUsn.getText().toString().trim();
-        String password = editTextPw.getText().toString().trim();
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("USERNAME");
+        String password = intent.getStringExtra("SEBAGAI");
 
         // Periksa apakah input tidak kosong
         if (username.isEmpty() || password.isEmpty()) {

@@ -23,9 +23,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "password TEXT)";
         db.execSQL(createUserTableQuery);
 
-        // Tambahkan akun admin jika belum ada
-        addUser(ADMIN_USERNAME, ADMIN_PASSWORD);
-
     }
 
     @Override

@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,9 +22,9 @@ public class AtraksiActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atraksi);
-
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        receivedCardViewItemsList = new ArrayList<>();
 
         //nyembunyiin nama project
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -45,7 +46,6 @@ public class AtraksiActivity extends AppCompatActivity {
         toolbar.addView(textView);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         if (getIntent().hasExtra("cardViewItemsList")) {
             receivedCardViewItemsList = getIntent().getParcelableArrayListExtra("cardViewItemsList");
         }
