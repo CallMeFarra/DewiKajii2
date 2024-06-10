@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +19,9 @@ import java.util.ArrayList;
 public class AtraksiActivity extends AppCompatActivity {
 
     private ArrayList<CardViewItem> receivedCardViewItemsList = new ArrayList<>();
+    private TextView judul1;
+    private TextView deskripsi2;
+    private ImageView imageView3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,9 @@ public class AtraksiActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         receivedCardViewItemsList = new ArrayList<>();
+        judul1 = findViewById(R.id.judul);
+        deskripsi2 = findViewById(R.id.deskripsi);
+        imageView3 = findViewById(R.id.gambar);
 
         //nyembunyiin nama project
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -46,9 +54,15 @@ public class AtraksiActivity extends AppCompatActivity {
         toolbar.addView(textView);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        if (getIntent().hasExtra("cardViewItemsList")) {
-            receivedCardViewItemsList = getIntent().getParcelableArrayListExtra("cardViewItemsList");
-        }
+        String judul = getIntent().getStringExtra("judul");
+        String keterangan = getIntent().getStringExtra("keterangan");
+        String imageUri = getIntent().getStringExtra("selectedImage");
+        Uri urimage = Uri.parse(imageUri);
+
+        judul1.setText(judul);
+        deskripsi2.setText(keterangan);
+        imageView3.setImageURI(urimage);
+
     }
 
     //back ke home

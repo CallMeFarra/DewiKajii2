@@ -3,6 +3,7 @@ package com.faradilla.dewikajii;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -14,11 +15,17 @@ import android.widget.Toolbar;
 import com.bumptech.glide.Glide;
 
 public class PaketWisata extends AppCompatActivity {
+    private TextView judul1;
+    private TextView deskripsi2;
+    private ImageView imageView3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_paket_wisata);
+        judul1 = findViewById(R.id.judul);
+        deskripsi2 = findViewById(R.id.deskripsi);
+        imageView3 = findViewById(R.id.gambar);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -38,28 +45,15 @@ public class PaketWisata extends AppCompatActivity {
         toolbar.addView(textView);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            String judul = getIntent().getStringExtra("judul");
+            String keterangan = getIntent().getStringExtra("keterangan");
+            String imageUri = getIntent().getStringExtra("selectedImage");
+            Uri urimage = Uri.parse(imageUri);
 
+            judul1.setText(judul);
+            deskripsi2.setText(keterangan);
+            imageView3.setImageURI(urimage);
 
-        CardViewItem cardViewItem = getIntent().getParcelableExtra("cardViewItem");
-
-        if(cardViewItem!=null){
-            String judul =cardViewItem.getJudul();
-            String keterangan = cardViewItem.getKeterangan();
-            String imageUri = cardViewItem.getImageUri();
-
-            // Menampilkan data di antarmuka pengguna
-            TextView judulTextView = findViewById(R.id.judulEditText);
-            TextView keteranganTextView = findViewById(R.id.keteranganEditText);
-            ImageView imageView = findViewById(R.id.uploadImage);
-
-            judulTextView.setText(judul);
-            keteranganTextView.setText(keterangan);
-            // Set gambar menggunakan imageUri
-            Glide.with(this).load(imageUri).into(imageView);
-
-        } else {
-            Toast.makeText(this, "Terjadi kesalahan, silakan ulangi.", Toast.LENGTH_SHORT).show();
-        }
     }
 
     private void setSupportActionBar(Toolbar toolbar) {

@@ -120,7 +120,9 @@ public class HomepageAdmin extends AppCompatActivity {
                 cardViewItemsList.add(new CardViewItem(judul, keterangan, selectedImageUri.toString()));
 
                 // Mengirim ArrayList ke aktivitas yang sesuai
-                intent.putExtra("cardViewItemsList", cardViewItemsList);
+                intent.putExtra("judul", judul);
+                intent.putExtra("keterangan", keterangan);
+                intent.putExtra("selectedImage", selectedImageUri.toString());
                 startActivity(intent);
             }
         } else {
